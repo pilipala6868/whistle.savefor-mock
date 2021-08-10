@@ -103,7 +103,7 @@
         cursor: not-allowed;
       }
       ul {
-        margin-left: -22px;
+        margin-left: -18px;
       }
       ul li {
         line-height: 32px;
@@ -195,6 +195,20 @@
 
       <div class="form-control">
         <label>
+          <input id="auto-open-file" type="checkbox" />
+          自动打开保存的文件（以立刻编辑 mock 数据）
+        </label>
+      </div>
+      <div class="desc">
+        <ul>
+          <li>
+            需先<a href="https://doc.zzax.io/t/vscode/setup/config-code-env/" target="_blank">配置 VS Code 环境变量</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="form-control">
+        <label>
           <input id="auto-copy" type="checkbox" />
           自动将生成的规则拷贝到剪切板
         </label>
@@ -202,7 +216,9 @@
       <div class="desc">
         <ul>
           <li>
-            形如<span class="precode">**/apis.json?action=XXX file:///Documents/XXX.json</span>
+            形如<span class="precode"
+              >**/apis.json?action=XXX file:///Documents/XXX.json</span
+            >
           </li>
         </ul>
       </div>
@@ -254,6 +270,9 @@
           } else {
             $("#radio-container").addClass("container-disabled");
           }
+          if (Number(data.autoOpenFile)) {
+            $("#auto-open-file")[0].checked = true;
+          }
           if (data.defaultDir) {
             $("#defaultDir").val(data.defaultDir);
           }
@@ -272,7 +291,7 @@
           });
 
           var btn = $("#update");
-          $("#defaultDir,#auto-copy,#protocalFile,#protocalResBody").on(
+          $("#defaultDir,#auto-copy,#auto-open-file,#protocalFile,#protocalResBody").on(
             "input",
             function () {
               btn[0].disabled = false;
@@ -282,11 +301,13 @@
             btn[0].disabled = true;
             var defaultDir = $("#defaultDir").val().trim();
             var autoCopy = $("#auto-copy")[0].checked ? 1 : 0;
+            var autoOpenFile = $("#auto-open-file")[0].checked ? 1 : 0;
             $.post({
               url: "cgi-bin/set-settings",
               dataType: "json",
               data: {
                 defaultDir,
+                autoOpenFile,
                 autoCopy,
                 autoCopyProtocal:
                   $("#protocalResBody")[0].checked === true
