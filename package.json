@@ -1,6 +1,6 @@
 {
   "name": "whistle.savefor-mock",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "whistle plugin for saving mock data, then automatically generate rule to clipboard.",
   "private": false,
   "dependencies": {
@@ -14,6 +14,11 @@
     "write-json-safe": "^2.1.0",
     "zlib": "^1.0.5"
   },
+  "keywords": [
+    "whistle plugin",
+    "mock",
+    "generate rule"
+  ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   }
